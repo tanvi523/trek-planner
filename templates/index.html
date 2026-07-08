@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trek Planner Agent — IBM Watsonx.ai</title>
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- App CSS -->
+  <link href="/static/css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════════ -->
+<nav class="navbar navbar-expand-lg tpa-navbar sticky-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#">
+      <span class="tpa-logo-icon"><i class="bi bi-mountain-fill"></i></span>
+      Trek Planner <span class="text-accent ms-1">Agent</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="#chat-section"><i class="bi bi-chat-dots me-1"></i>Chat</a></li>
+        <li class="nav-item"><a class="nav-link" href="#recommend-section"><i class="bi bi-compass me-1"></i>Recommend</a></li>
+        <li class="nav-item"><a class="nav-link" href="#itinerary-section"><i class="bi bi-calendar3 me-1"></i>Itinerary</a></li>
+        <li class="nav-item"><a class="nav-link" href="#checklist-section"><i class="bi bi-bag me-1"></i>Packing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#fitness-section"><i class="bi bi-heart-pulse me-1"></i>Fitness</a></li>
+        <li class="nav-item ms-lg-2">
+          <button id="themeToggle" class="btn btn-sm tpa-theme-btn" title="Toggle light/dark mode">
+            <i class="bi bi-sun-fill" id="themeIcon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ════════════════════════════════════ -->
+<header class="tpa-hero">
+  <div class="tpa-hero-bg"></div>
+  <div class="container text-center position-relative py-5">
+    <div class="tpa-hero-badge mb-3 animate-fade-up">Powered by IBM Watsonx.ai · Granite</div>
+    <h1 class="display-4 fw-bold mb-3 animate-fade-up delay-1">
+      Your AI-Powered <span class="text-accent">Trek Planner</span>
+    </h1>
+    <p class="lead mb-4 animate-fade-up delay-2" style="max-width:600px;margin:auto">
+      Personalised Himalayan &amp; Sahyadri itineraries, smart packing lists, fitness checks, and real-time cost estimates — all in one place.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap animate-fade-up delay-3">
+      <a href="#chat-section" class="btn tpa-btn-primary btn-lg"><i class="bi bi-chat-dots me-2"></i>Start Chatting</a>
+      <a href="#recommend-section" class="btn tpa-btn-outline btn-lg"><i class="bi bi-compass me-2"></i>Explore Treks</a>
+    </div>
+    <!-- Stats bar -->
+    <div class="tpa-stats-bar mt-5 animate-fade-up delay-4">
+      <div class="tpa-stat"><span class="tpa-stat-num">200+</span><span class="tpa-stat-label">Trek Routes</span></div>
+      <div class="tpa-stat-divider"></div>
+      <div class="tpa-stat"><span class="tpa-stat-num">5</span><span class="tpa-stat-label">Difficulty Grades</span></div>
+      <div class="tpa-stat-divider"></div>
+      <div class="tpa-stat"><span class="tpa-stat-num">AI</span><span class="tpa-stat-label">Powered by Granite</span></div>
+      <div class="tpa-stat-divider"></div>
+      <div class="tpa-stat"><span class="tpa-stat-num">24/7</span><span class="tpa-stat-label">Always Available</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ QUICK FEATURE CARDS ══════════════════════════ -->
+<section class="py-5 tpa-features-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="tpa-feature-card h-100 animate-slide-up">
+          <div class="tpa-feature-icon tpa-icon-blue"><i class="bi bi-chat-dots-fill"></i></div>
+          <h6 class="fw-semibold mt-3">AI Chat Assistant</h6>
+          <p class="text-muted small">Ask anything about treks, routes, seasons, or safety. Powered by IBM Granite.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="tpa-feature-card h-100 animate-slide-up delay-1">
+          <div class="tpa-feature-icon tpa-icon-green"><i class="bi bi-map-fill"></i></div>
+          <h6 class="fw-semibold mt-3">Smart Recommendations</h6>
+          <p class="text-muted small">Tailored trek suggestions based on your fitness, experience, and budget.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="tpa-feature-card h-100 animate-slide-up delay-2">
+          <div class="tpa-feature-icon tpa-icon-orange"><i class="bi bi-calendar-week-fill"></i></div>
+          <h6 class="fw-semibold mt-3">Day-wise Itinerary</h6>
+          <p class="text-muted small">Detailed day plans with altitudes, distances, camp names, and difficulty ratings.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="tpa-feature-card h-100 animate-slide-up delay-3">
+          <div class="tpa-feature-icon tpa-icon-purple"><i class="bi bi-heart-pulse-fill"></i></div>
+          <h6 class="fw-semibold mt-3">Fitness Assessment</h6>
+          <p class="text-muted small">Personalised readiness checks and 8-week training plans for your target trek.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ CHAT SECTION ══════════════════════════════ -->
+<section id="chat-section" class="py-5">
+  <div class="container">
+    <div class="tpa-section-header mb-4">
+      <h2 class="fw-bold"><i class="bi bi-chat-dots-fill text-accent me-2"></i>AI Trek Assistant</h2>
+      <p class="text-muted">Ask anything — trek suggestions, gear advice, altitude tips, cost breakdowns.</p>
+    </div>
+    <div class="row g-4">
+      <!-- Chat window -->
+      <div class="col-lg-8">
+        <div class="tpa-chat-card">
+          <div class="tpa-chat-header">
+            <div class="d-flex align-items-center gap-2">
+              <div class="tpa-online-dot"></div>
+              <span class="fw-semibold">Trek Planner Agent</span>
+              <span class="badge tpa-badge-granite ms-1">IBM Granite</span>
+            </div>
+            <button class="btn btn-sm tpa-btn-ghost" id="clearChat" title="Clear chat"><i class="bi bi-trash3"></i></button>
+          </div>
+          <div id="chatMessages" class="tpa-chat-messages">
+            <!-- Welcome message -->
+            <div class="tpa-msg tpa-msg-bot">
+              <div class="tpa-msg-avatar"><i class="bi bi-mountain-fill"></i></div>
+              <div class="tpa-msg-bubble">
+                <p class="mb-1">👋 Namaste! I'm your AI Trek Planner powered by <strong>IBM Watsonx.ai Granite</strong>.</p>
+                <p class="mb-0">Ask me about trek recommendations, itineraries, packing checklists, fitness plans, or anything mountain-related!</p>
+              </div>
+            </div>
+          </div>
+          <div class="tpa-chat-input-area">
+            <!-- Quick prompt chips -->
+            <div class="tpa-chip-row mb-2" id="quickChips">
+              <button class="tpa-chip" onclick="sendQuick('Suggest a 7-day beginner trek in Uttarakhand')">🏔️ Beginner Treks</button>
+              <button class="tpa-chip" onclick="sendQuick('What are altitude sickness symptoms and prevention?')">⛑️ Altitude Safety</button>
+              <button class="tpa-chip" onclick="sendQuick('What gear do I need for a winter Himalayan trek?')">🎒 Winter Gear</button>
+              <button class="tpa-chip" onclick="sendQuick('How much does Stok Kangri cost for a group of 6?')">💰 Cost Estimate</button>
+            </div>
+            <div class="input-group">
+              <input type="text" id="chatInput" class="form-control tpa-chat-input"
+                     placeholder="Ask about treks, gear, fitness, cost…" autocomplete="off" />
+              <button class="btn tpa-btn-send" id="sendBtn" onclick="sendMessage()">
+                <i class="bi bi-send-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Chat sidebar tips -->
+      <div class="col-lg-4 d-flex flex-column gap-3">
+        <div class="tpa-tip-card">
+          <div class="tpa-tip-icon"><i class="bi bi-lightbulb-fill"></i></div>
+          <div>
+            <div class="fw-semibold small">Pro Tips</div>
+            <ul class="text-muted small mt-1 mb-0 ps-3">
+              <li>Mention your fitness level for better suggestions</li>
+              <li>Specify season for accurate weather advice</li>
+              <li>Include group size for cost estimates</li>
+              <li>Ask for "Grade 1–5" difficulty explanation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tpa-tip-card tpa-tip-warning">
+          <div class="tpa-tip-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+          <div>
+            <div class="fw-semibold small">⚠️ AMS Warning</div>
+            <p class="text-muted small mt-1 mb-0">Altitude Mountain Sickness can affect anyone above 3 500 m. Always acclimatise, hydrate, and descend if symptoms worsen.</p>
+          </div>
+        </div>
+        <div class="tpa-tip-card tpa-tip-success">
+          <div class="tpa-tip-icon"><i class="bi bi-shield-check-fill"></i></div>
+          <div>
+            <div class="fw-semibold small">Safety First</div>
+            <p class="text-muted small mt-1 mb-0">The agent automatically includes LNT principles, emergency exit points, and permit requirements in every recommendation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ RECOMMENDATION SECTION ════════════════════════ -->
+<section id="recommend-section" class="py-5 tpa-alt-section">
+  <div class="container">
+    <div class="tpa-section-header mb-4">
+      <h2 class="fw-bold"><i class="bi bi-compass-fill text-accent me-2"></i>Trek Recommendations</h2>
+      <p class="text-muted">Fill in your profile and get AI-curated trek suggestions.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="tpa-form-card">
+          <form id="recommendForm">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label">Fitness Level</label>
+                <select class="form-select tpa-select" name="fitness">
+                  <option value="beginner">Beginner</option>
+                  <option value="moderate" selected>Moderate</option>
+                  <option value="fit">Fit</option>
+                  <option value="athletic">Athletic</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Experience</label>
+                <select class="form-select tpa-select" name="experience">
+                  <option value="first-timer">First-timer</option>
+                  <option value="beginner" selected>1–2 treks</option>
+                  <option value="intermediate">3–5 treks</option>
+                  <option value="experienced">5+ treks</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Duration</label>
+                <select class="form-select tpa-select" name="duration">
+                  <option value="2-3 days">Weekend (2–3 days)</option>
+                  <option value="4-5 days">Short (4–5 days)</option>
+                  <option value="5-7 days" selected>Week (5–7 days)</option>
+                  <option value="8-12 days">Extended (8–12 days)</option>
+                  <option value="12+ days">Expedition (12+ days)</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Region</label>
+                <select class="form-select tpa-select" name="region">
+                  <option value="any" selected>Any</option>
+                  <option value="Himalayan">Himalayan</option>
+                  <option value="Western Ghats">Western Ghats</option>
+                  <option value="Sahyadri">Sahyadri</option>
+                  <option value="Ladakh">Ladakh</option>
+                  <option value="Northeast India">Northeast India</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Season</label>
+                <select class="form-select tpa-select" name="season">
+                  <option value="any" selected>Any</option>
+                  <option value="summer">Summer (Apr–Jun)</option>
+                  <option value="monsoon">Monsoon (Jul–Sep)</option>
+                  <option value="autumn">Autumn (Oct–Nov)</option>
+                  <option value="winter">Winter (Dec–Mar)</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Group Size</label>
+                <input type="number" class="form-control tpa-input" name="group_size" value="4" min="1" max="30" />
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn tpa-btn-primary w-100">
+                  <i class="bi bi-magic me-2"></i>Get AI Recommendations
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="tpa-result-card h-100" id="recommendResult">
+          <div class="tpa-result-placeholder">
+            <i class="bi bi-compass display-4 text-muted"></i>
+            <p class="text-muted mt-3">Your personalised trek recommendations will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ ITINERARY SECTION ══════════════════════════ -->
+<section id="itinerary-section" class="py-5">
+  <div class="container">
+    <div class="tpa-section-header mb-4">
+      <h2 class="fw-bold"><i class="bi bi-calendar3 text-accent me-2"></i>Itinerary Generator</h2>
+      <p class="text-muted">Generate a detailed day-wise plan for any trek.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="tpa-form-card">
+          <form id="itineraryForm">
+            <div class="mb-3">
+              <label class="form-label">Trek Name</label>
+              <input type="text" class="form-control tpa-input" name="trek_name" placeholder="e.g. Kedarkantha, Hampta Pass" value="Kedarkantha" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Duration</label>
+              <select class="form-select tpa-select" name="duration">
+                <option>4 days</option>
+                <option>5 days</option>
+                <option selected>6 days</option>
+                <option>7 days</option>
+                <option>8 days</option>
+                <option>10 days</option>
+                <option>12 days</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Group Size</label>
+              <input type="number" class="form-control tpa-input" name="group_size" value="4" min="1" max="30" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Trekking Pace</label>
+              <select class="form-select tpa-select" name="pace">
+                <option value="leisurely">Leisurely</option>
+                <option value="moderate" selected>Moderate</option>
+                <option value="fast">Fast</option>
+              </select>
+            </div>
+            <button type="submit" class="btn tpa-btn-primary w-100">
+              <i class="bi bi-calendar-plus me-2"></i>Generate Itinerary
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="tpa-result-card h-100" id="itineraryResult">
+          <div class="tpa-result-placeholder">
+            <i class="bi bi-calendar3 display-4 text-muted"></i>
+            <p class="text-muted mt-3">Your day-wise itinerary will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PACKING CHECKLIST ════════════════════════════ -->
+<section id="checklist-section" class="py-5 tpa-alt-section">
+  <div class="container">
+    <div class="tpa-section-header mb-4">
+      <h2 class="fw-bold"><i class="bi bi-bag-fill text-accent me-2"></i>Smart Packing Checklist</h2>
+      <p class="text-muted">Get a gear list tailored to your trek, season, and altitude.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="tpa-form-card">
+          <form id="checklistForm">
+            <div class="mb-3">
+              <label class="form-label">Trek Name</label>
+              <input type="text" class="form-control tpa-input" name="trek_name" placeholder="e.g. Roopkund, Tadiandamol" value="Kedarkantha" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Season</label>
+              <select class="form-select tpa-select" name="season">
+                <option value="summer" selected>Summer</option>
+                <option value="monsoon">Monsoon</option>
+                <option value="autumn">Autumn</option>
+                <option value="winter">Winter</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Duration</label>
+              <select class="form-select tpa-select" name="duration">
+                <option>3 days</option>
+                <option>5 days</option>
+                <option selected>7 days</option>
+                <option>10 days</option>
+                <option>14 days</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Max Altitude (metres)</label>
+              <input type="number" class="form-control tpa-input" name="max_altitude" value="4000" min="500" max="8850" />
+            </div>
+            <button type="submit" class="btn tpa-btn-primary w-100">
+              <i class="bi bi-list-check me-2"></i>Generate Checklist
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="tpa-result-card h-100" id="checklistResult">
+          <div class="tpa-result-placeholder">
+            <i class="bi bi-bag display-4 text-muted"></i>
+            <p class="text-muted mt-3">Your personalised packing checklist will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FITNESS SECTION ═════════════════════════════ -->
+<section id="fitness-section" class="py-5">
+  <div class="container">
+    <div class="tpa-section-header mb-4">
+      <h2 class="fw-bold"><i class="bi bi-heart-pulse-fill text-accent me-2"></i>Fitness &amp; Difficulty Assessment</h2>
+      <p class="text-muted">Find out if you're ready — and get a personalised 8-week training plan.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="tpa-form-card">
+          <form id="fitnessForm">
+            <div class="mb-3">
+              <label class="form-label">Target Trek</label>
+              <input type="text" class="form-control tpa-input" name="trek_name" placeholder="e.g. Stok Kangri, Roopkund" value="Stok Kangri" />
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-control tpa-input" name="age" value="28" min="10" max="80" />
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Fitness Level</label>
+                <select class="form-select tpa-select" name="fitness_level">
+                  <option value="sedentary">Sedentary</option>
+                  <option value="light">Lightly active</option>
+                  <option value="moderate" selected>Moderate</option>
+                  <option value="fit">Fit</option>
+                  <option value="athletic">Athletic</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Prior Trekking Experience</label>
+              <input type="text" class="form-control tpa-input" name="experience" placeholder="e.g. 2 treks below 3000m" value="2 day hikes below 2000m" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Health Conditions (if any)</label>
+              <input type="text" class="form-control tpa-input" name="health_conditions" placeholder="e.g. mild asthma, none" value="none" />
+            </div>
+            <button type="submit" class="btn tpa-btn-primary w-100">
+              <i class="bi bi-clipboard2-pulse me-2"></i>Assess My Fitness
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="tpa-result-card h-100" id="fitnessResult">
+          <div class="tpa-result-placeholder">
+            <i class="bi bi-heart-pulse display-4 text-muted"></i>
+            <p class="text-muted mt-3">Your fitness assessment and training plan will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ FOOTER ══════════════════════════════════ -->
+<footer class="tpa-footer mt-5 py-4">
+  <div class="container text-center">
+    <p class="mb-1 fw-semibold"><i class="bi bi-mountain-fill text-accent me-1"></i> Trek Planner Agent</p>
+    <p class="text-muted small mb-2">Powered by <strong>IBM Watsonx.ai</strong> · Granite 3.3 · Flask</p>
+    <p class="text-muted small">⚠️ This agent provides planning assistance only. Always verify local conditions, carry safety gear, and follow official advisories.</p>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+  <div id="tpaToast" class="toast tpa-toast align-items-center" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="toastBody">Message</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading overlay -->
+<div id="loadingOverlay" class="tpa-loading-overlay d-none">
+  <div class="tpa-spinner">
+    <div class="tpa-spinner-mountain"><i class="bi bi-mountain-fill"></i></div>
+    <p class="mt-3 text-accent fw-semibold" id="loadingText">Generating…</p>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Marked.js for Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<!-- App JS -->
+<script src="/static/js/app.js"></script>
+</body>
+</html>
